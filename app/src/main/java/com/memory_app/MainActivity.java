@@ -23,11 +23,40 @@ public class MainActivity extends AppCompatActivity {
         settings = findViewById(R.id.btn_settings);
         exit = findViewById(R.id.btn_exit);
 
+        setOnclickListeners();
+
+
+    }
+    private void setOnclickListeners(){
         newgame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewGameActivity.class);
                 startActivity(intent);
+            }
+        });
+        quickgame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        score.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
