@@ -109,7 +109,7 @@ public class NewGameActivity2 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewGameActivity2.this, NewGameActivity2.class);
+                Intent intent = new Intent(NewGameActivity2.this, GameActivity.class);
                 intent.putExtra("settings", gameSettings);
                 startActivity(intent);
             }
