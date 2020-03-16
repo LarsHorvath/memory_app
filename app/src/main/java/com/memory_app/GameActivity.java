@@ -30,6 +30,9 @@ public class GameActivity extends AppCompatActivity {
             case 6:
                 setContentView(R.layout.activity_game_6x5);
                 break;
+            case 7:
+                setContentView(R.layout.activity_game_7x6);
+                break;
             default: setContentView(R.layout.activity_game);
         }
 

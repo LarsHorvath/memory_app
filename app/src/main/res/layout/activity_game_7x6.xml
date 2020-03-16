@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_rounded"
+    tools:context=".GameActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="80dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="12dp" />
+
+    <ImageView
+        android:id="@+id/btn_pause"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pause_circle_outline_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintStart_toEndOf="@+id/txt_trys"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_timer_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_filter_1_black_24dp" />
+
+    <TextView
+        android:id="@+id/txt_trys"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="120"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="1:10"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.166" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.333" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.666" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- Button Tiles  -->
+
+    <Button
+        android:id="@+id/tile7_7"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tile7_1"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:text="A"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tile7_10"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <Button
+        android:id="@+id/tile7_11"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_17"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+
+    <Button
+        android:id="@+id/tile7_5"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_11"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+
+    <Button
+        android:id="@+id/tile7_4"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_10"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <Button
+        android:id="@+id/tile7_16"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <Button
+        android:id="@+id/tile7_17"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+
+    <Button
+        android:id="@+id/tile7_18"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17" />
+
+    <Button
+        android:id="@+id/tile7_12"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17" />
+
+    <Button
+        android:id="@+id/tile7_24"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+
+    <Button
+        android:id="@+id/tile7_30"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_24" />
+
+    <Button
+        android:id="@+id/tile7_36"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_30" />
+
+    <Button
+        android:id="@+id/tile7_42"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_36" />
+
+    <Button
+        android:id="@+id/tile7_6"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline17" />
+
+    <Button
+        android:id="@+id/tile7_15"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <Button
+        android:id="@+id/tile7_21"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_15" />
+
+    <Button
+        android:id="@+id/tile7_27"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_21" />
+
+    <Button
+        android:id="@+id/tile7_33"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_27" />
+
+    <Button
+        android:id="@+id/tile7_39"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_33" />
+
+    <Button
+        android:id="@+id/tile7_9"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_15"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <Button
+        android:id="@+id/tile7_3"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_9"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <Button
+        android:id="@+id/tile7_13"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tile7_14"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13" />
+
+    <Button
+        android:id="@+id/tile7_8"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13" />
+
+    <Button
+        android:id="@+id/tile7_2"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile7_8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13" />
+
+    <Button
+        android:id="@+id/tile7_19"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_13" />
+
+    <Button
+        android:id="@+id/tile7_20"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_14" />
+
+    <Button
+        android:id="@+id/tile7_26"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_20" />
+
+    <Button
+        android:id="@+id/tile7_32"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_26" />
+
+    <Button
+        android:id="@+id/tile7_38"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_32" />
+
+    <Button
+        android:id="@+id/tile7_31"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_25" />
+
+    <Button
+        android:id="@+id/tile7_37"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_31" />
+
+    <Button
+        android:id="@+id/tile7_25"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_19" />
+
+    <Button
+        android:id="@+id/tile7_22"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_16" />
+
+    <Button
+        android:id="@+id/tile7_23"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_17" />
+
+    <Button
+        android:id="@+id/tile7_29"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_23" />
+
+    <Button
+        android:id="@+id/tile7_35"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_29" />
+
+    <Button
+        android:id="@+id/tile7_44"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_35" />
+
+    <Button
+        android:id="@+id/tile7_28"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_22" />
+
+    <Button
+        android:id="@+id/tile7_34"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_28" />
+
+    <Button
+        android:id="@+id/tile7_40"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/tile7_34" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.833" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
