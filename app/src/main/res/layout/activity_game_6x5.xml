@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="12"
+        android:text="120"
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
@@ -78,21 +78,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline14"
@@ -101,276 +108,407 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
+    <!-- Button Tiles  -->
+
     <Button
-        android:id="@+id/tile5_5"
+        android:id="@+id/tile6_6"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_9"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_11"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/tile5_1"
+        android:id="@+id/tile6_1"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
         android:text="A"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_5"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_6"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/tile5_8"
+        android:id="@+id/tile6_9"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_12"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <Button
-        android:id="@+id/tile5_4"
+        android:id="@+id/tile6_10"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_8"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_15"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+
+    <Button
+        android:id="@+id/tile6_5"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
+
+    <Button
+        android:id="@+id/tile6_4"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_9"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="@+id/guideline12" />
 
     <Button
-        android:id="@+id/tile5_12"
+        android:id="@+id/tile6_14"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline12" />
+
+    <Button
+        android:id="@+id/tile6_15"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
 
     <Button
-        android:id="@+id/tile5_11"
+        android:id="@+id/tile6_13"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-    <Button
-        android:id="@+id/tile5_15"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="@dimen/tile_margin_horizontal"
-        android:layout_marginTop="@dimen/tile_margin_vertical"
-        android:layout_marginEnd="@dimen/tile_margin_horizontal"
-        android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_11" />
-
-    <Button
-        android:id="@+id/tile5_19"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="@dimen/tile_margin_horizontal"
-        android:layout_marginTop="@dimen/tile_margin_vertical"
-        android:layout_marginEnd="@dimen/tile_margin_horizontal"
-        android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_15" />
-
-    <Button
-        android:id="@+id/tile5_7"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="@dimen/tile_margin_horizontal"
-        android:layout_marginEnd="@dimen/tile_margin_horizontal"
-        android:layout_marginBottom="@dimen/tile_margin_vertical"
-        android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_11"
-        app:layout_constraintEnd_toStartOf="@+id/guideline12"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline15" />
-
-    <Button
-        android:id="@+id/tile5_3"
-        android:layout_width="0dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="@dimen/tile_margin_horizontal"
-        android:layout_marginEnd="@dimen/tile_margin_horizontal"
-        android:layout_marginBottom="@dimen/tile_margin_vertical"
-        android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_7"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline15" />
 
     <Button
-        android:id="@+id/tile5_9"
+        android:id="@+id/tile6_18"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_13" />
 
     <Button
-        android:id="@+id/tile5_10"
+        android:id="@+id/tile6_23"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_18" />
 
     <Button
-        android:id="@+id/tile5_6"
+        android:id="@+id/tile6_28"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_23" />
+
+    <Button
+        android:id="@+id/tile6_8"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_10"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_13"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <Button
+        android:id="@+id/tile6_3"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
+
+    <Button
+        android:id="@+id/tile6_11"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/tile6_12"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline13" />
 
     <Button
-        android:id="@+id/tile5_2"
+        android:id="@+id/tile6_7"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:layout_marginBottom="@dimen/tile_margin_vertical"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/tile5_6"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_12"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline13" />
 
     <Button
-        android:id="@+id/tile5_13"
+        android:id="@+id/tile6_2"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:layout_marginBottom="@dimen/tile_margin_vertical"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/tile6_7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13" />
+
+    <Button
+        android:id="@+id/tile6_16"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_9" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_11" />
 
     <Button
-        android:id="@+id/tile5_14"
+        android:id="@+id/tile6_17"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_10" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_12" />
 
     <Button
-        android:id="@+id/tile5_18"
+        android:id="@+id/tile6_22"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_14" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_17" />
 
     <Button
-        android:id="@+id/tile5_17"
+        android:id="@+id/tile6_27"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline13"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_22" />
+
+    <Button
+        android:id="@+id/tile6_26"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_21" />
+
+    <Button
+        android:id="@+id/tile6_21"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_13" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_16" />
 
     <Button
-        android:id="@+id/tile5_16"
+        android:id="@+id/tile6_19"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_12" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_14" />
 
     <Button
-        android:id="@+id/tile5_20"
+        android:id="@+id/tile6_20"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
         android:layout_marginStart="@dimen/tile_margin_horizontal"
         android:layout_marginTop="@dimen/tile_margin_vertical"
         android:layout_marginEnd="@dimen/tile_margin_horizontal"
         android:elevation="8dp"
-        android:textSize="50sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_15" />
+
+    <Button
+        android:id="@+id/tile6_25"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_20" />
+
+    <Button
+        android:id="@+id/tile6_30"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_25" />
+
+    <Button
+        android:id="@+id/tile6_24"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toBottomOf="@+id/tile5_16" />
+        app:layout_constraintTop_toBottomOf="@+id/tile6_19" />
+
+    <Button
+        android:id="@+id/tile6_29"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="@dimen/tile_margin_horizontal"
+        android:layout_marginTop="@dimen/tile_margin_vertical"
+        android:layout_marginEnd="@dimen/tile_margin_horizontal"
+        android:elevation="8dp"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/tile6_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

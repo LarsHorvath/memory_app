@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -36,9 +37,11 @@ public class NewGameActivity2 extends AppCompatActivity {
         letters = findViewById(R.id.btn_mode_abc);
         shapes = findViewById(R.id.btn_mode_shapes);
         logos = findViewById(R.id.btn_mode_logo);
-        seekBar = (SeekBar)findViewById(R.id.seekBar);
+        seekBar = findViewById(R.id.seekBar);
 
         gameSettings = new GameSettings();
+        modeSelection = ModeSelection.NUMBERS;
+        updateModes();
 
         // Get Bundle with Preferences from Activity before
         Bundle bundle = getIntent().getExtras();
@@ -48,6 +51,9 @@ public class NewGameActivity2 extends AppCompatActivity {
         gameSettings.setNamePlayer2(bundle.getString("namePlayer2"));
         gameSettings.setAi(bundle.getBoolean("AI"));
         gameSettings.setAiString(bundle.getString("AiString"));
+        gameSettings.setColums(5);
+        gameSettings.setRows(4);
+
 
         setOnClickListeners();
 
@@ -109,7 +115,9 @@ public class NewGameActivity2 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: gameSettings, Mode: "+gameSettings.getMode()+" colum: "+gameSettings.getColums()+"  rows: "+gameSettings.getRows());
                 Intent intent = new Intent(NewGameActivity2.this, GameActivity.class);
+
                 intent.putExtra("settings", gameSettings);
                 startActivity(intent);
             }
