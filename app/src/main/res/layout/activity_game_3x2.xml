@@ -76,13 +76,12 @@
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Chronometer
         android:id="@+id/txt_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="1:10"
-        android:textSize="22dp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent" />

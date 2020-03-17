@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +25,9 @@ public class GameActivity extends AppCompatActivity {
     int[] buttonIDs;
     int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     TextView txt_tries, txt_timer;
-    Button pause, popupToScore, popupToHome;;
+    Button pause, popupToScore, popupToHome;
+    Chronometer timer;
+
     Dialog popupEndGame, popupPause;
     boolean mutexTurnCard;
 
@@ -73,6 +76,7 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_game);
         }
 
+        // Parameters
         columns = gameSettings.getColums();
         rows = gameSettings.getRows();
         // initialize buttons, board and counters
@@ -85,7 +89,11 @@ public class GameActivity extends AppCompatActivity {
         lastJ = 0;
         mutexTurnCard = false;
 
+        // findViewByIDs and set OnClick Listeners
         findViewByIdAndOnClick();
+
+        // start Timer Chronometer
+        timer.start();
 
         fillGrid(gameSettings.getMode(), columns, rows);
     } // END of onCreate
@@ -110,8 +118,9 @@ public class GameActivity extends AppCompatActivity {
                 cardsRemaining -= 2;
                 Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
                 if (cardsRemaining == 0){
-                    Log.d(TAG, "turnCard: cardRemaining = 0");
-                    showWinPopup(totalTries);
+                    timer.stop();
+                    Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
+                    showWinPopup(totalTries,timer.getText().toString());
                 }
                 boardStatus[i][j] = BoardStatus.MATCH;
                 boardStatus[lastI][lastJ] = BoardStatus.MATCH;
@@ -163,10 +172,9 @@ public class GameActivity extends AppCompatActivity {
                 n++;
             }
         }
-        txt_timer = findViewById(R.id.txt_time);
+        timer = findViewById(R.id.txt_time);
         txt_tries = findViewById(R.id.txt_trys);
         txt_tries.setText("0");
-        txt_timer.setText("0:00");
         popupEndGame = new Dialog(this);
     }
 
@@ -229,13 +237,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // Show Dialog PopUp
-    public void showWinPopup(int score){
+    public void showWinPopup(int score, String timer){
         Log.d(TAG, "showWinPopup: ");
         popupEndGame.setContentView(R.layout.popup_win);
         popupToScore = popupEndGame.findViewById(R.id.btn_saveScore);
         popupToHome = popupEndGame.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupEndGame.findViewById(R.id.txt_result);
-        txt_score.setText(""+score+" turns in 1:00 min");
+        txt_score.setText(""+score+" turns in "+timer+" min");
 
         popupToScore.setOnClickListener(new View.OnClickListener() {
             @Override
