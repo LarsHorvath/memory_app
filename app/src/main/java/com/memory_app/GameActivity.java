@@ -198,6 +198,7 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < rows; ++j) {
                 buttons[i][j].setText(selection.get(m));
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                if (mode == 1 && (columns == 8 || columns ==7)) buttons[i][j].setTextSize(20);
                 boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
             }
