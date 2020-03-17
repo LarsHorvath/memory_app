@@ -5,4 +5,12 @@
     <color name="colorAccent">#ffd54f</color>
     <color name="colorAccentDark">#efc440</color>
     <color name="buttongray">#e0e0e0</color>
+
+    <!-- Colors for custom Dialog -->
+    <color name="colorRed">@android:color/holo_red_light</color>
+    <color name="colorRedDark">@android:color/holo_red_dark</color>
+    <color name="colorGreen">#4F8016</color>
+    <color name="colorGreenLight">#ADD67D</color>
+    <color name="colorGreen1">#658C37</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

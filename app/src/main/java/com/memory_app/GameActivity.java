@@ -2,6 +2,10 @@ package com.memory_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,7 +24,8 @@ public class GameActivity extends AppCompatActivity {
     int[] buttonIDs;
     int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     TextView txt_tries, txt_timer;
-    Button pause;
+    Button pause, popupToScore, popupToHome;;
+    Dialog popupEndGame, popupPause;
     boolean mutexTurnCard;
 
     enum BoardStatus {INIT, TURNED, MATCH}
@@ -70,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
         boardStatus = new BoardStatus[columns][rows];
         numTries = 0;
         totalTries = 0;
-        cardsRemaining = columns * rows / 2;
+        cardsRemaining = columns * rows;
         lastI = 0;
         lastJ = 0;
         mutexTurnCard = false;
@@ -97,8 +102,12 @@ public class GameActivity extends AppCompatActivity {
         }
         if (numTries == 2) {
             if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText())) {
-                Log.d(TAG, "turnCard: numTries = 2, MATCH");
                 cardsRemaining -= 2;
+                Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
+                if (cardsRemaining == 0){
+                    Log.d(TAG, "turnCard: cardRemaining = 0");
+                    showWinPopup(totalTries);
+                }
                 boardStatus[i][j] = BoardStatus.MATCH;
                 boardStatus[lastI][lastJ] = BoardStatus.MATCH;
                 match = true;
@@ -153,6 +162,7 @@ public class GameActivity extends AppCompatActivity {
         txt_tries = findViewById(R.id.txt_trys);
         txt_tries.setText("0");
         txt_timer.setText("0:00");
+        popupEndGame = new Dialog(this);
     }
 
     // fill Grid according to size of grid and mode
@@ -210,6 +220,34 @@ public class GameActivity extends AppCompatActivity {
             selection.add(s.toString());
         }
         return selection;
+    }
+
+    // Show Dialog PopUp
+    public void showWinPopup(int score){
+        Log.d(TAG, "showWinPopup: ");
+        popupEndGame.setContentView(R.layout.popup_win);
+        popupToScore = popupEndGame.findViewById(R.id.btn_saveScore);
+        popupToHome = popupEndGame.findViewById(R.id.btn_returnHome);
+        TextView txt_score = popupEndGame.findViewById(R.id.txt_result);
+        txt_score.setText(""+score+" turns in 1:00 min");
+
+        popupToScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        popupToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        popupEndGame.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupEndGame.show();
+
     }
 
 }
