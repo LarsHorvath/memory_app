@@ -67,6 +67,7 @@ public class NewGameActivity2 extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 txt_difficulty.setText(difficulties[i]);
                 gameSettings.setColums(i+3);
+                if (i == 5) i = 4;
                 gameSettings.setRows(i+2);
             }
             @Override

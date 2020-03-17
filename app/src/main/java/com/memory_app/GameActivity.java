@@ -64,6 +64,11 @@ public class GameActivity extends AppCompatActivity {
                 buttonIDs = new int[]{R.id.tile7_1, R.id.tile7_2, R.id.tile7_3, R.id.tile7_4, R.id.tile7_5, R.id.tile7_6, R.id.tile7_7, R.id.tile7_8, R.id.tile7_9, R.id.tile7_10, R.id.tile7_11, R.id.tile7_12, R.id.tile7_13, R.id.tile7_14, R.id.tile7_15, R.id.tile7_16, R.id.tile7_17, R.id.tile7_18, R.id.tile7_19, R.id.tile7_20, R.id.tile7_21, R.id.tile7_22, R.id.tile7_23, R.id.tile7_24, R.id.tile7_25, R.id.tile7_26, R.id.tile7_27, R.id.tile7_28, R.id.tile7_29, R.id.tile7_30, R.id.tile7_31, R.id.tile7_32, R.id.tile7_33, R.id.tile7_34, R.id.tile7_35, R.id.tile7_36, R.id.tile7_37, R.id.tile7_38, R.id.tile7_39, R.id.tile7_40, R.id.tile7_41, R.id.tile7_42};
                 setContentView(R.layout.activity_game_7x6);
                 break;
+            case 8:
+                buttonIDs = new int[]{R.id.tile8_1, R.id.tile8_2, R.id.tile8_3, R.id.tile8_4, R.id.tile8_5, R.id.tile8_6, R.id.tile8_7, R.id.tile8_8, R.id.tile8_9, R.id.tile8_10, R.id.tile8_11, R.id.tile8_12, R.id.tile8_13, R.id.tile8_14, R.id.tile8_15, R.id.tile8_16, R.id.tile8_17, R.id.tile8_18, R.id.tile8_19, R.id.tile8_20, R.id.tile8_21, R.id.tile8_22, R.id.tile8_23, R.id.tile8_24, R.id.tile8_25, R.id.tile8_26, R.id.tile8_27, R.id.tile8_28, R.id.tile8_29, R.id.tile8_30, R.id.tile8_31, R.id.tile8_32, R.id.tile8_33, R.id.tile8_34, R.id.tile8_35, R.id.tile8_36, R.id.tile8_37, R.id.tile8_38, R.id.tile8_39, R.id.tile8_40, R.id.tile8_41, R.id.tile8_42, R.id.tile8_43, R.id.tile8_44, R.id.tile8_45, R.id.tile8_46, R.id.tile8_47, R.id.tile8_48};
+                setContentView(R.layout.activity_game_8x6);
+                break;
+
             default:
                 setContentView(R.layout.activity_game);
         }
