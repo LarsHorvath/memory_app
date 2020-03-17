@@ -3,9 +3,11 @@ package com.memory_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +18,15 @@ public class GameActivity extends AppCompatActivity {
 
     Button[][] buttons;
     int[] buttonIDs;
+    int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
+    TextView txt_tries, txt_timer;
+    Button pause;
+    boolean mutexTurnCard;
+
+    enum BoardStatus {INIT, TURNED, MATCH}
+
+    BoardStatus[][] boardStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +35,9 @@ public class GameActivity extends AppCompatActivity {
         // Get Settings from previous Activity
         GameSettings gameSettings = (GameSettings) getIntent().getSerializableExtra("settings");
         assert gameSettings != null;
-        buttons = new Button[gameSettings.getColums()][gameSettings.getRows()];
 
-        // Select the Grid
+
+        // Select the Grid Layout
         switch (gameSettings.getColums()) {
             case 3:
                 buttonIDs = new int[]{R.id.tile3_1, R.id.tile3_2, R.id.tile3_3, R.id.tile3_4, R.id.tile3_5, R.id.tile3_6};
@@ -52,10 +63,80 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_game);
         }
 
+        columns = gameSettings.getColums();
+        rows = gameSettings.getRows();
+        // initialize buttons, board and counters
+        buttons = new Button[gameSettings.getColums()][gameSettings.getRows()];
+        boardStatus = new BoardStatus[columns][rows];
+        numTries = 0;
+        totalTries = 0;
+        cardsRemaining = columns * rows / 2;
+        lastI = 0;
+        lastJ = 0;
+        mutexTurnCard = false;
+
+        findViewByIdAndOnClick();
+
+        fillGrid(gameSettings.getMode(), columns, rows);
+    } // END of onCreate
+
+    private void turnCard(final int i, final int j) {
+        Log.d(TAG, "turnCard: at position i=" + i + " j=" + j);
+        if (mutexTurnCard) return;
+        mutexTurnCard = true;
+        numTries++;
+        totalTries++;
+        txt_tries.setText("" + totalTries);
+        boolean match = false;
+        buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
+        if (numTries == 1) {
+            lastI = i;
+            lastJ = j;
+            boardStatus[i][j] = BoardStatus.TURNED;
+            mutexTurnCard = false; // release Mutex
+        }
+        if (numTries == 2) {
+            if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText())) {
+                Log.d(TAG, "turnCard: numTries = 2, MATCH");
+                cardsRemaining -= 2;
+                boardStatus[i][j] = BoardStatus.MATCH;
+                boardStatus[lastI][lastJ] = BoardStatus.MATCH;
+                match = true;
+            } else {
+                Log.d(TAG, "turnCard: numTries = 2, NO MATCH");
+                boardStatus[i][j] = BoardStatus.INIT;
+                boardStatus[lastI][lastJ] = BoardStatus.INIT;
+            }
+            numTries = 0;
+            final boolean finalMatch = match;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "run: waited 2 sec, finalMATCH=" + finalMatch);
+                    if (finalMatch) {
+                        Log.d(TAG, "run: set all transparent");
+                        buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                        buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
+                        buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                    } else {
+                        buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                        buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
+                    }
+                    mutexTurnCard = false; // release Mutex
+                }
+            }, 2000);
+        }
+
+
+    }
+
+    // findViewByIDs and set OnClick Listeners
+    private void findViewByIdAndOnClick() {
         // Find Views By ID and set OnClickListener
         int n = 0;
-        for (int i = 0; i < gameSettings.getColums(); i++) {
-            for (int j = 0; j < gameSettings.getRows(); j++) {
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
                 buttons[i][j] = findViewById(buttonIDs[n]);
                 final int finalI = i;
                 final int finalJ = j;
@@ -68,19 +149,16 @@ public class GameActivity extends AppCompatActivity {
                 n++;
             }
         }
-
-        fillGrid(gameSettings.getMode(),gameSettings.getColums(),gameSettings.getRows());
-    } // END of onCreate
-
-    private void turnCard(int i, int j) {
-        Log.d(TAG, "turnCard: i=" + i + " j=" + j);
-        buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
+        txt_timer = findViewById(R.id.txt_time);
+        txt_tries = findViewById(R.id.txt_trys);
+        txt_tries.setText("0");
+        txt_timer.setText("0:00");
     }
 
     // fill Grid according to size of grid and mode
     private void fillGrid(int mode, int colums, int rows) {
         int gridLength = colums * rows / 2;
-        Log.d(TAG, "fillGrid: gridLenth: "+gridLength);
+        Log.d(TAG, "fillGrid: gridLenth: " + gridLength);
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         ArrayList<Character> selection = makeSelection(alphabet, gridLength);
 
@@ -94,6 +172,7 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < rows; ++j) {
                 buttons[i][j].setText(selection.get(m).toString());
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
             }
         }
@@ -116,7 +195,7 @@ public class GameActivity extends AppCompatActivity {
                 // while s already in selection get new one
                 s = getRandomChar(alphabet);
             }
-            Log.d(TAG, "makeSelection: s:"+s);
+            Log.d(TAG, "makeSelection: s:" + s);
             selection.add(s);
         }
         return selection;
