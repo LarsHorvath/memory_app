@@ -160,8 +160,19 @@ public class GameActivity extends AppCompatActivity {
         int gridLength = colums * rows / 2;
         Log.d(TAG, "fillGrid: gridLenth: " + gridLength);
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        ArrayList<Character> selection = makeSelection(alphabet, gridLength);
 
+        ArrayList<Integer> numbers = new ArrayList<>();
+        for (int i = 0; i < gridLength; ++i) {
+            numbers.add(i);
+        }
+        ArrayList<String> selection = new ArrayList<>();
+        if (mode == 1) {
+            for (int i = 0; i < gridLength; ++i) {
+                selection.add(numbers.get(i).toString());
+            }
+        } else if (mode == 2) {
+            selection = makeLetterSelection(alphabet, gridLength);
+        }
         // Duplicate selection and shuffle
         selection.addAll(selection);
         Collections.shuffle(selection);
@@ -170,7 +181,7 @@ public class GameActivity extends AppCompatActivity {
         int m = 0;
         for (int i = 0; i < colums; ++i) {
             for (int j = 0; j < rows; ++j) {
-                buttons[i][j].setText(selection.get(m).toString());
+                buttons[i][j].setText(selection.get(m));
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
                 boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
@@ -186,18 +197,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // makes a valid selection out of a char array
-    public ArrayList<Character> makeSelection(char[] alphabet, int gridLength) {
+    public ArrayList<String> makeLetterSelection(char[] alphabet, int gridLength) {
         Log.d(TAG, "makeSelection: ");
-        ArrayList<Character> selection = new ArrayList<>();
+        ArrayList<String> selection = new ArrayList<>();
         for (int i = 0; i < gridLength; i++) {
-            char s = getRandomChar(alphabet);
+            Character s = getRandomChar(alphabet);
             while (selection.contains(s)) {
                 // while s already in selection get new one
                 s = getRandomChar(alphabet);
             }
             Log.d(TAG, "makeSelection: s:" + s);
-            selection.add(s);
+            selection.add(s.toString());
         }
         return selection;
     }
+
 }
