@@ -25,14 +25,14 @@ public class GameActivity extends AppCompatActivity {
 
     Button[][] buttons;
     int[] buttonIDs;
-    int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     TextView txt_tries, txt_timer;
     Button popupToScore, popupToHome;
     Chronometer timer;
     ImageView pause;
-
     Dialog popupEndGame, popupPause;
     boolean mutexTurnCard;
+    int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
+    String namePlayer1, namePlayer2;
 
     enum BoardStatus {INIT, TURNED, MATCH}
 
@@ -82,6 +82,8 @@ public class GameActivity extends AppCompatActivity {
         // Parameters
         columns = gameSettings.getColums();
         rows = gameSettings.getRows();
+        namePlayer1 = gameSettings.getNamePlayer1();
+        namePlayer2 = gameSettings.getNamePlayer2();
         // initialize buttons, board and counters
         buttons = new Button[gameSettings.getColums()][gameSettings.getRows()];
         boardStatus = new BoardStatus[columns][rows];
@@ -257,12 +259,18 @@ public class GameActivity extends AppCompatActivity {
         popupToScore = popupEndGame.findViewById(R.id.btn_goToScores);
         popupToHome = popupEndGame.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupEndGame.findViewById(R.id.txt_result);
+        TextView txt_win = popupEndGame.findViewById(R.id.txt_win);
+        txt_win.setText("Congratulations!\n"+namePlayer1+"\nContinue and try harder levels!");
         txt_score.setText(""+score+" turns in "+timer+" min");
 
+
+        final GameScores gameScores = new GameScores(columns, namePlayer1,score,timer);
         popupToScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                Intent intent = new Intent(GameActivity.this, ScoreActivity.class);
+                intent.putExtra("lastScore", gameScores);
+                popupEndGame.dismiss();
                 startActivity(intent);
             }
         });
@@ -270,7 +278,10 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                popupEndGame.dismiss();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
         popupEndGame.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -285,7 +296,10 @@ public class GameActivity extends AppCompatActivity {
         Button resume = popupPause.findViewById(R.id.btn_resume);
         Button returnHome = popupPause.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupPause.findViewById(R.id.txt_result);
+        TextView txt_player = popupPause.findViewById(R.id.txt_player);
         txt_score.setText(""+score+" turns in "+timer+" min");
+        txt_player.setText(namePlayer1);
+
 
         resume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,7 +312,10 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                popupPause.dismiss();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
 
