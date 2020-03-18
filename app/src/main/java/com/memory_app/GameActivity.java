@@ -8,10 +8,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,8 +27,9 @@ public class GameActivity extends AppCompatActivity {
     int[] buttonIDs;
     int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     TextView txt_tries, txt_timer;
-    Button pause, popupToScore, popupToHome;
+    Button popupToScore, popupToHome;
     Chronometer timer;
+    ImageView pause;
 
     Dialog popupEndGame, popupPause;
     boolean mutexTurnCard;
@@ -174,8 +177,19 @@ public class GameActivity extends AppCompatActivity {
         }
         timer = findViewById(R.id.txt_time);
         txt_tries = findViewById(R.id.txt_trys);
+        pause = findViewById(R.id.btn_pause);
         txt_tries.setText("0");
         popupEndGame = new Dialog(this);
+        popupPause = new Dialog(this);
+
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                timer.stop();
+                showPausePopup(totalTries,timer.getText().toString(),timeWhenStopped);
+            }
+        });
     }
 
     // fill Grid according to size of grid and mode
@@ -236,11 +250,11 @@ public class GameActivity extends AppCompatActivity {
         return selection;
     }
 
-    // Show Dialog PopUp
+    // Show Dialog PopUp when game is finished
     public void showWinPopup(int score, String timer){
         Log.d(TAG, "showWinPopup: ");
         popupEndGame.setContentView(R.layout.popup_win);
-        popupToScore = popupEndGame.findViewById(R.id.btn_saveScore);
+        popupToScore = popupEndGame.findViewById(R.id.btn_goToScores);
         popupToHome = popupEndGame.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupEndGame.findViewById(R.id.txt_result);
         txt_score.setText(""+score+" turns in "+timer+" min");
@@ -263,5 +277,40 @@ public class GameActivity extends AppCompatActivity {
         popupEndGame.show();
 
     }
+
+    // Pause Dialog Popup
+    public void showPausePopup(int score, String timer, final long base){
+        Log.d(TAG, "showPausePopup: ");
+        popupPause.setContentView(R.layout.popup_pause);
+        Button resume = popupPause.findViewById(R.id.btn_resume);
+        Button returnHome = popupPause.findViewById(R.id.btn_returnHome);
+        TextView txt_score = popupPause.findViewById(R.id.txt_result);
+        txt_score.setText(""+score+" turns in "+timer+" min");
+
+        resume.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartTimer(base);
+                popupPause.dismiss();
+            }
+        });
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        popupPause.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        popupPause.show();
+
+    }
+
+    public void restartTimer(long timeWhenStopped){
+        timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+        timer.start();
+    }
+
 
 }

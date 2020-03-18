@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
+            android:paddingBottom="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -85,7 +86,7 @@
                 tools:layout_editor_absoluteX="8dp" />
 
             <Button
-                android:id="@+id/btn_saveScore"
+                android:id="@+id/btn_goToScores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -106,9 +107,19 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button_round_popup"
                 android:text="Retrun to home"
+                android:elevation="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_saveScore" />
+                app:layout_constraintTop_toBottomOf="@id/btn_goToScores" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_returnHome" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

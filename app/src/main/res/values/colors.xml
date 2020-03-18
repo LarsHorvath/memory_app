@@ -3,7 +3,8 @@
     <color name="colorPrimary">#8bc34a</color>
     <color name="colorPrimaryDark">#5a9216</color>
     <color name="colorAccent">#ffd54f</color>
-    <color name="colorAccentDark">#efc440</color>
+    <color name="colorAccentLight">#FFE8A0</color>
+    <color name="colorAccentDark">#CAA430</color>
     <color name="buttongray">#e0e0e0</color>
 
     <!-- Colors for custom Dialog -->
