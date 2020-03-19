@@ -49,9 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        //BackgroundSoundService backgroundSoundService = new BackgroundSoundService();
-        //backgroundSoundService.mediaPlayer.setVolume(100,100);
-
     }
 
     public void stopBackgroundSound(){

@@ -90,6 +90,7 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.Scor
 
     @Override
     public int getItemCount() {
+        /*
         int itemCount = 0, count3 = 0, count4 = 0, count5 = 0, count6 = 0, count7 = 0, count8 = 0;
         for (int i = 0; i < scores.size(); i++) {
             int mode = scores.get(i).getIntMode();
@@ -122,7 +123,8 @@ public class ScoreTileAdapter extends RecyclerView.Adapter<ScoreTileAdapter.Scor
         if (count7 > 0) itemCount++;
         if (count8 > 0) itemCount++;
 
-        return itemCount;
+        return itemCount;*/
+        return 6;
     }
 
     public class ScoreViewHolder extends RecyclerView.ViewHolder {
