@@ -49,11 +49,9 @@ public class ScoreActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: gameScores: column: " + lastScore.getMode() + " name: " + lastScore.getNamePlayer() + " score: " + lastScore.getScore());
 
         loadScores();
-        if (lastScore.getIntMode() != -1){
+        if (lastScore.getIntMode() != -1) {
             scores.add(lastScore);
         }
-
-        // getScores();
 
         initRecyclerView();
 
@@ -65,23 +63,6 @@ public class ScoreActivity extends AppCompatActivity {
         ScoreTileAdapter adapter = new ScoreTileAdapter(this, scores);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    // create Places
-    private void getScores() {
-        Log.d(TAG, "getScores: ");
-        GameScores esn1 = new GameScores(3, "Lars", 10, "0:10");
-        GameScores esn2 = new GameScores(3, "Kai", 13, "0:30");
-        GameScores happyerasmus = new GameScores(4, "Lars", 12, "0:20");
-        GameScores erasmuslife = new GameScores(4, "Kai", 14, "1:10");
-        GameScores soyerasmus = new GameScores(5, "Lars", 30, "2:10");
-
-        scores.add(esn1);
-        scores.add(esn2);
-        scores.add(happyerasmus);
-        scores.add(erasmuslife);
-        scores.add(soyerasmus);
-        scores.add(soyerasmus);
     }
 
     public void saveScores() {
@@ -98,12 +79,12 @@ public class ScoreActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("scores", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("scoreList", null);
-        Log.d(TAG, "loadScores: JSON String: "+json);
+        Log.d(TAG, "loadScores: JSON String: " + json);
         Type type = new TypeToken<ArrayList<GameScores>>() {
         }.getType();
-        if(gson.fromJson(json, type) == null){
+        if (gson.fromJson(json, type) == null) {
             scores = new ArrayList<>();
-        }else{
+        } else {
             scores = gson.fromJson(json, type);
         }
 
