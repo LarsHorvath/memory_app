@@ -17,8 +17,9 @@ public class NewGameActivity2 extends AppCompatActivity {
     SeekBar seekBar;
     TextView txt_difficulty;
     Button back, next, numbers, letters, shapes, logos;
-    String[] difficulties = {"3x2","4x3","5x4","6x5","7x6","8x6"};
-    enum ModeSelection {NUMBERS, LETTERS, SHAPES, LOGOS}
+    String[] difficulties = {"3x2", "4x3", "5x4", "6x5", "7x6", "8x6"};
+
+    enum ModeSelection {NUMBERS, LETTERS, SHAPES, ANIMALS}
 
     // Preferences
     GameSettings gameSettings;
@@ -58,22 +59,24 @@ public class NewGameActivity2 extends AppCompatActivity {
         setOnClickListeners();
 
 
-
     }
-    private void setOnClickListeners(){
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+    private void setOnClickListeners() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 txt_difficulty.setText(difficulties[i]);
-                gameSettings.setColums(i+3);
+                gameSettings.setColums(i + 3);
                 if (i == 5) i = 4;
-                gameSettings.setRows(i+2);
+                gameSettings.setRows(i + 2);
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
+
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
@@ -103,7 +106,7 @@ public class NewGameActivity2 extends AppCompatActivity {
         logos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modeSelection = ModeSelection.LOGOS;
+                modeSelection = ModeSelection.ANIMALS;
                 updateModes();
             }
         });
@@ -116,9 +119,8 @@ public class NewGameActivity2 extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: gameSettings, Mode: "+gameSettings.getMode()+" colum: "+gameSettings.getColums()+"  rows: "+gameSettings.getRows());
+                Log.d(TAG, "onClick: gameSettings, Mode: " + gameSettings.getMode() + " colum: " + gameSettings.getColums() + "  rows: " + gameSettings.getRows());
                 Intent intent = new Intent(NewGameActivity2.this, GameActivity.class);
-
                 intent.putExtra("settings", gameSettings);
                 startActivity(intent);
             }
@@ -126,7 +128,7 @@ public class NewGameActivity2 extends AppCompatActivity {
 
     }
 
-    private void updateModes(){
+    private void updateModes() {
         int mode = 0;
 
         numbers.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
@@ -134,7 +136,7 @@ public class NewGameActivity2 extends AppCompatActivity {
         shapes.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
         logos.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
 
-        switch (modeSelection){
+        switch (modeSelection) {
             case NUMBERS:
                 mode = 1;
                 numbers.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
@@ -147,7 +149,7 @@ public class NewGameActivity2 extends AppCompatActivity {
                 mode = 3;
                 shapes.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
                 break;
-            case LOGOS:
+            case ANIMALS:
                 mode = 4;
                 logos.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
                 break;

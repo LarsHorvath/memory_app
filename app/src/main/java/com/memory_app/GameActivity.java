@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -25,13 +27,16 @@ public class GameActivity extends AppCompatActivity {
 
     Button[][] buttons;
     int[] buttonIDs;
+    int[] imageIDs;
+    int[][] buttonImages;
+
     TextView txt_tries, txt_timer;
     Button popupToScore, popupToHome;
     Chronometer timer;
     ImageView pause;
     Dialog popupEndGame, popupPause;
     boolean mutexTurnCard;
-    int columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
+    int mode, columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     String namePlayer1, namePlayer2;
 
     enum BoardStatus {INIT, TURNED, MATCH}
@@ -79,13 +84,16 @@ public class GameActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_game);
         }
 
+
         // Parameters
+        mode = gameSettings.getMode();
         columns = gameSettings.getColums();
         rows = gameSettings.getRows();
         namePlayer1 = gameSettings.getNamePlayer1();
         namePlayer2 = gameSettings.getNamePlayer2();
         // initialize buttons, board and counters
         buttons = new Button[gameSettings.getColums()][gameSettings.getRows()];
+        buttonImages = new int[gameSettings.getColums()][gameSettings.getRows()];
         boardStatus = new BoardStatus[columns][rows];
         numTries = 0;
         totalTries = 0;
@@ -110,31 +118,61 @@ public class GameActivity extends AppCompatActivity {
         numTries++;
         totalTries++;
         txt_tries.setText("" + totalTries);
+        final Drawable background = buttons[i][j].getBackground();
         boolean match = false;
-        buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
+
+        // setTextColor or new Background if card is turned, depending on mode
+        if (mode == 1 || mode == 2){
+            Log.d(TAG, "turnCard: mode = 1 or 2");
+            buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
+        }else if (mode == 4){
+            Log.d(TAG, "turnCard: mode == 4");
+            buttons[i][j].setBackgroundResource(buttonImages[i][j]);
+        }
+
         if (numTries == 1) {
             lastI = i;
             lastJ = j;
-            boardStatus[i][j] = BoardStatus.TURNED;
+            //boardStatus[i][j] = BoardStatus.TURNED;
             mutexTurnCard = false; // release Mutex
         }
+        // second turned Card
         if (numTries == 2) {
-            if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText())) {
-                cardsRemaining -= 2;
-                Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
-                if (cardsRemaining == 0){
-                    timer.stop();
-                    Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
-                    showWinPopup(totalTries,timer.getText().toString());
+            // comparing card corresponding to mode
+            if (mode == 1 || mode ==2){
+                if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText())) {
+                    cardsRemaining -= 2;
+                    Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
+                    if (cardsRemaining == 0){
+                        timer.stop();
+                        Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
+                        showWinPopup(totalTries,timer.getText().toString());
+                    }
+                    boardStatus[i][j] = BoardStatus.MATCH;
+                    boardStatus[lastI][lastJ] = BoardStatus.MATCH;
+                    match = true;
+                } else {
+                    Log.d(TAG, "turnCard: numTries = 2, NO MATCH");
+                    //boardStatus[i][j] = BoardStatus.INIT;
+                    //boardStatus[lastI][lastJ] = BoardStatus.INIT;
                 }
-                boardStatus[i][j] = BoardStatus.MATCH;
-                boardStatus[lastI][lastJ] = BoardStatus.MATCH;
-                match = true;
-            } else {
-                Log.d(TAG, "turnCard: numTries = 2, NO MATCH");
-                boardStatus[i][j] = BoardStatus.INIT;
-                boardStatus[lastI][lastJ] = BoardStatus.INIT;
+            }else{
+                if(((BitmapDrawable)buttons[i][j].getBackground()).getBitmap() == ((BitmapDrawable)buttons[lastI][lastJ].getBackground()).getBitmap()){
+                    cardsRemaining -= 2;
+                    Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
+                    if (cardsRemaining == 0){
+                        timer.stop();
+                        Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
+                        showWinPopup(totalTries,timer.getText().toString());
+                    }
+                    match = true;
+                }
+
             }
+
+
+
+
             numTries = 0;
             final boolean finalMatch = match;
             new Handler().postDelayed(new Runnable() {
@@ -143,13 +181,24 @@ public class GameActivity extends AppCompatActivity {
                     Log.d(TAG, "run: waited 2 sec, finalMATCH=" + finalMatch);
                     if (finalMatch) {
                         Log.d(TAG, "run: set all transparent");
-                        buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
-                        buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
-                        buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                        buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        if (mode == 1 || mode ==2){
+                            buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                            buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
+                            buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                            buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        }else {
+                            buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                            buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                        }
                     } else {
-                        buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
-                        buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
+                        if (mode == 1 || mode ==2){
+                            buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                            buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
+                        }else {
+                            buttons[i][j].setBackground(background);
+                            buttons[lastI][lastJ].setBackground(background);
+                        }
+
                     }
                     mutexTurnCard = false; // release Mutex
                 }
@@ -198,22 +247,36 @@ public class GameActivity extends AppCompatActivity {
     private void fillGrid(int mode, int colums, int rows) {
         int gridLength = colums * rows / 2;
         Log.d(TAG, "fillGrid: gridLenth: " + gridLength);
+
+        // LETTER Alphabet
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
+        // NUMBERS Collection
         ArrayList<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < gridLength; ++i) {
             numbers.add(i);
         }
+
+        // ANIMALS Collection - Image IDs
+        imageIDs = new int[]{R.drawable.animal1, R.drawable.animal2, R.drawable.animal3, R.drawable.animal4, R.drawable.animal5, R.drawable.animal6, R.drawable.animal7, R.drawable.animal8, R.drawable.animal9, R.drawable.animal10, R.drawable.animal11, R.drawable.animal12, R.drawable.animal13, R.drawable.animal14, R.drawable.animal15, R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19, R.drawable.animal20, R.drawable.animal21, R.drawable.animal22, R.drawable.animal23, R.drawable.animal24, R.drawable.animal25, R.drawable.animal26, R.drawable.animal27, R.drawable.animal28, R.drawable.animal29, R.drawable.animal30, R.drawable.animal31, R.drawable.animal32, R.drawable.animal33, R.drawable.animal34, R.drawable.animal35, R.drawable.animal36, R.drawable.animal37, R.drawable.animal38, R.drawable.animal39, R.drawable.animal40, R.drawable.animal41, R.drawable.animal42, R.drawable.animal43, R.drawable.animal44, R.drawable.animal45, R.drawable.animal46, R.drawable.animal47, R.drawable.animal48};
+        ArrayList<Integer> imageSelection = new ArrayList<>();
+        for (int i=0; i<gridLength; ++i){
+            imageSelection.add(imageIDs[i]);
+        }
+
         ArrayList<String> selection = new ArrayList<>();
         if (mode == 1) {
             for (int i = 0; i < gridLength; ++i) {
                 selection.add(numbers.get(i).toString());
             }
-        } else if (mode == 2) {
+        } else {
             selection = makeLetterSelection(alphabet, gridLength);
         }
+
         // Duplicate selection and shuffle
+        imageSelection.addAll(imageSelection);
         selection.addAll(selection);
+        Collections.shuffle(imageSelection);
         Collections.shuffle(selection);
 
         // fill the buttons with the shuffled selection and hide text
@@ -222,6 +285,7 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < rows; ++j) {
                 buttons[i][j].setText(selection.get(m));
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
+                if (mode == 4) buttonImages[i][j]=imageSelection.get(m);
                 if (mode == 1 && (columns == 8 || columns ==7)) buttons[i][j].setTextSize(20);
                 boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
