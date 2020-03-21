@@ -2,9 +2,13 @@ package com.memory_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -14,14 +18,21 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private static final String TAG = "SettingsActivity";
+
     Button clearScores;
     Switch aSwitch;
     SeekBar seekBar;
+    AudioManager audioManager;
+    BackgroundSoundService backgroundSoundService;
+    int lastProgress;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        backgroundSoundService = new BackgroundSoundService();
 
         clearScores = findViewById(R.id.btn_clearScores);
         aSwitch = findViewById(R.id.switch2);
@@ -41,17 +52,42 @@ public class SettingsActivity extends AppCompatActivity {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
+                    //backgroundSoundService.startMusic();
                     playBackgroundSound();
-                }else {
+                } else {
+                    //backgroundSoundService.stopMusic();
                     stopBackgroundSound();
                 }
             }
         });
 
+
+        lastProgress = 0;
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Log.d(TAG, "onProgressChanged: progress="+progress+" lastprogress="+lastProgress+" streamVolume=");
+                backgroundSoundService.pauseMusic();
+                lastProgress = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
     }
 
-    public void stopBackgroundSound(){
+    public void stopBackgroundSound() {
         Intent intent = new Intent(SettingsActivity.this, BackgroundSoundService.class);
         stopService(intent);
     }

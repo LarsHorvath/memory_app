@@ -1,6 +1,7 @@
 package com.memory_app;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Binder;
@@ -39,7 +40,7 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnErr
 
         if (mediaPlayer != null){
             mediaPlayer.setLooping(true); // Set looping
-            mediaPlayer.setVolume(80, 80);
+            mediaPlayer.setVolume(70, 70);
         }
 
         assert mediaPlayer != null;
@@ -74,6 +75,7 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnErr
     }
 
     public void startMusic() {
+        super.onCreate();
         mediaPlayer = MediaPlayer.create(this, R.raw.tetris);
         mediaPlayer.setOnErrorListener(this);
 
