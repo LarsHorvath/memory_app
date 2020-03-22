@@ -324,7 +324,14 @@ public class GameActivity extends AppCompatActivity {
         imageIDs = new int[]{R.drawable.animal1, R.drawable.animal2, R.drawable.animal3, R.drawable.animal4, R.drawable.animal5, R.drawable.animal6, R.drawable.animal7, R.drawable.animal8, R.drawable.animal9, R.drawable.animal10, R.drawable.animal11, R.drawable.animal12, R.drawable.animal13, R.drawable.animal14, R.drawable.animal15, R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19, R.drawable.animal20, R.drawable.animal21, R.drawable.animal22, R.drawable.animal23, R.drawable.animal24, R.drawable.animal25, R.drawable.animal26, R.drawable.animal27, R.drawable.animal28, R.drawable.animal29, R.drawable.animal30, R.drawable.animal31, R.drawable.animal32, R.drawable.animal33, R.drawable.animal34, R.drawable.animal35, R.drawable.animal36, R.drawable.animal37, R.drawable.animal38, R.drawable.animal39, R.drawable.animal40, R.drawable.animal41, R.drawable.animal42, R.drawable.animal43, R.drawable.animal44, R.drawable.animal45, R.drawable.animal46, R.drawable.animal47, R.drawable.animal48};
         ArrayList<Integer> imageSelection = new ArrayList<>();
         for (int i = 0; i < gridLength; ++i) {
-            imageSelection.add(imageIDs[i]);
+            int rnd = new Random().nextInt(imageIDs.length);
+            Integer image = imageIDs[rnd];
+            while (imageSelection.contains(image)) {
+                // while s already in selection get new one
+                rnd = new Random().nextInt(imageIDs.length);
+                image = imageIDs[rnd];
+            }
+            imageSelection.add(image);
         }
 
         ArrayList<String> selection = new ArrayList<>();
