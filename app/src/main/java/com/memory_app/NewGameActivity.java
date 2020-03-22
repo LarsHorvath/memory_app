@@ -20,7 +20,7 @@ public class NewGameActivity extends AppCompatActivity {
     Button easy, medium, hard;
     Button back, next;
     Switch computer;
-    EditText txt_plaxer1, txt_player2;
+    EditText txt_player1, txt_player2;
 
     // Preferences
     int numberOfPlayers;
@@ -47,7 +47,7 @@ public class NewGameActivity extends AppCompatActivity {
         hard = findViewById(R.id.btn_hard);
         back = findViewById(R.id.btn_back2);
         next = findViewById(R.id.btn_next2);
-        txt_plaxer1 = findViewById(R.id.editText);
+        txt_player1 = findViewById(R.id.editText);
         txt_player2 = findViewById(R.id.editText2);
         computer = findViewById(R.id.switch1);
 
@@ -173,9 +173,9 @@ public class NewGameActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
 
         // parse infos from editText
-        String namePlayer1 = txt_plaxer1.getText().toString();
+        String namePlayer1 = txt_player1.getText().toString();
         if (namePlayer1.isEmpty()) namePlayer1 = "Player 1";
-        String namePlayer2 = txt_plaxer1.getText().toString();
+        String namePlayer2 = txt_player2.getText().toString();
         if (namePlayer2.isEmpty()) namePlayer2 = "Player 2";
 
 

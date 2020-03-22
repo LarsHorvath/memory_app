@@ -1,6 +1,7 @@
 package com.memory_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -30,18 +31,24 @@ public class GameActivity extends AppCompatActivity {
     int[] imageIDs;
     int[][] buttonImages;
 
-    TextView txt_tries, txt_timer;
+    TextView txt_tries, txt_playerName;
     Button popupToScore, popupToHome;
     Chronometer timer;
     ImageView pause;
+    ConstraintLayout layout;
     Dialog popupEndGame, popupPause;
-    boolean mutexTurnCard;
+    boolean mutexTurnCard, twoPlayerMode;
     int mode, columns, rows, numTries, totalTries, cardsRemaining, lastI, lastJ;
     String namePlayer1, namePlayer2;
+    long timePlayer1, timePlayer2;
+    int scorePlayer1, scorePlayer2;
+
+    enum Turn {PLAYER1, PLAYER2}
 
     enum BoardStatus {INIT, TURNED, MATCH}
 
     BoardStatus[][] boardStatus;
+    Turn turn;
 
 
     @Override
@@ -91,6 +98,12 @@ public class GameActivity extends AppCompatActivity {
         rows = gameSettings.getRows();
         namePlayer1 = gameSettings.getNamePlayer1();
         namePlayer2 = gameSettings.getNamePlayer2();
+        twoPlayerMode = gameSettings.getNumberOfPlayers() > 1;
+        turn = Turn.PLAYER1;
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+        timePlayer1 = 0;
+        timePlayer2 = 0;
         // initialize buttons, board and counters
         buttons = new Button[gameSettings.getColums()][gameSettings.getRows()];
         buttonImages = new int[gameSettings.getColums()][gameSettings.getRows()];
@@ -114,18 +127,19 @@ public class GameActivity extends AppCompatActivity {
     private void turnCard(final int i, final int j) {
         Log.d(TAG, "turnCard: at position i=" + i + " j=" + j);
         if (mutexTurnCard) return;
+        if (boardStatus[i][j] == BoardStatus.MATCH) return;
         mutexTurnCard = true;
         numTries++;
         totalTries++;
-        txt_tries.setText("" + totalTries);
+        if (!twoPlayerMode) txt_tries.setText("" + totalTries);
         final Drawable background = buttons[i][j].getBackground();
         boolean match = false;
 
         // setTextColor or new Background if card is turned, depending on mode
-        if (mode == 1 || mode == 2){
+        if ((mode == 1 || mode == 2) && boardStatus[i][j] == BoardStatus.INIT) {
             Log.d(TAG, "turnCard: mode = 1 or 2");
             buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
-        }else if (mode == 4){
+        } else if (mode == 4 && boardStatus[i][j] == BoardStatus.INIT) {
             Log.d(TAG, "turnCard: mode == 4");
             buttons[i][j].setBackgroundResource(buttonImages[i][j]);
         }
@@ -133,44 +147,83 @@ public class GameActivity extends AppCompatActivity {
         if (numTries == 1) {
             lastI = i;
             lastJ = j;
-            //boardStatus[i][j] = BoardStatus.TURNED;
+            if (boardStatus[i][j] == BoardStatus.INIT) boardStatus[i][j] = BoardStatus.TURNED;
             mutexTurnCard = false; // release Mutex
         }
         // second turned Card
         if (numTries == 2) {
             // comparing card corresponding to mode
-            if (mode == 1 || mode ==2){
-                if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText())) {
+            if (mode == 1 || mode == 2) {
+                if (buttons[i][j].getText().equals(buttons[lastI][lastJ].getText()) && boardStatus[lastI][lastJ] == BoardStatus.TURNED) {
                     cardsRemaining -= 2;
-                    Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
-                    if (cardsRemaining == 0){
+                    Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: " + cardsRemaining+ "  Boardstatus[i][j]: "+boardStatus[i][j]+ "  Boardstatus[lastI][lastJ]: "+boardStatus[lastI][lastJ]);
+
+                    if (turn == Turn.PLAYER1 && twoPlayerMode) {
+                        scorePlayer1++;
+                        turn = Turn.PLAYER1;
+                        txt_tries.setText(Integer.toString(scorePlayer1)); // Update Score
+                    } else if (turn == Turn.PLAYER2 && twoPlayerMode) {
+                        scorePlayer2++;
+                        turn = Turn.PLAYER2;
+                        txt_tries.setText(Integer.toString(scorePlayer2)); // Update Score
+                    }
+                    if (cardsRemaining == 0) {
                         timer.stop();
-                        Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
-                        showWinPopup(totalTries,timer.getText().toString());
+                        Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:" + timer.getBase());
+                        showWinPopup(totalTries, timer.getText().toString());
                     }
                     boardStatus[i][j] = BoardStatus.MATCH;
                     boardStatus[lastI][lastJ] = BoardStatus.MATCH;
                     match = true;
                 } else {
                     Log.d(TAG, "turnCard: numTries = 2, NO MATCH");
-                    //boardStatus[i][j] = BoardStatus.INIT;
-                    //boardStatus[lastI][lastJ] = BoardStatus.INIT;
-                }
-            }else{
-                if(((BitmapDrawable)buttons[i][j].getBackground()).getBitmap() == ((BitmapDrawable)buttons[lastI][lastJ].getBackground()).getBitmap()){
-                    cardsRemaining -= 2;
-                    Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: "+cardsRemaining);
-                    if (cardsRemaining == 0){
-                        timer.stop();
-                        Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:"+timer.getBase());
-                        showWinPopup(totalTries,timer.getText().toString());
+                    if (turn == Turn.PLAYER1 && twoPlayerMode) {
+                        turn = Turn.PLAYER2;
+                    } else if (turn == Turn.PLAYER2 && twoPlayerMode) {
+                        turn = Turn.PLAYER1;
                     }
-                    match = true;
+                    boardStatus[i][j] = BoardStatus.INIT;
+                    boardStatus[lastI][lastJ] = BoardStatus.INIT;
                 }
+            } else {
+                // If Image View
+                // if MATCH
+                Log.d(TAG, "turnCard: i "+i+ " j: "+j);
+                Log.d(TAG, "turnCard: boardStatus[i][j] == BoardStatus.MATCH:  "+(boardStatus[i][j] == BoardStatus.MATCH));
 
-            }
-
-
+                if (!(boardStatus[i][j] == BoardStatus.MATCH)){
+                    if (((BitmapDrawable) buttons[i][j].getBackground()).getBitmap() == ((BitmapDrawable) buttons[lastI][lastJ].getBackground()).getBitmap()) {
+                        cardsRemaining -= 2;
+                        Log.d(TAG, "turnCard: numTries = 2, MATCH, cardsRemaining: " + cardsRemaining);
+                        if (turn == Turn.PLAYER1 && twoPlayerMode) {
+                            scorePlayer1++;
+                            turn = Turn.PLAYER1; // Next Player
+                            txt_tries.setText(Integer.toString(scorePlayer1)); // Update Score
+                        } else if (turn == Turn.PLAYER2 && twoPlayerMode) {
+                            scorePlayer2++;
+                            turn = Turn.PLAYER2; // Next Player
+                            txt_tries.setText(Integer.toString(scorePlayer2)); // Update Score
+                        }
+                        if (cardsRemaining == 0) {
+                            timer.stop();
+                            Log.d(TAG, "turnCard: cardRemaining = 0, timer Base:" + timer.getBase());
+                            showWinPopup(totalTries, timer.getText().toString());
+                        }
+                        boardStatus[i][j] = BoardStatus.MATCH;
+                        boardStatus[lastI][lastJ] = BoardStatus.MATCH;
+                        match = true;
+                    } else {
+                        // No MATCH
+                        if (turn == Turn.PLAYER1 && twoPlayerMode) {
+                            turn = Turn.PLAYER2;
+                        } else if (turn == Turn.PLAYER2 && twoPlayerMode) {
+                            turn = Turn.PLAYER1;
+                        }
+                        boardStatus[i][j] = BoardStatus.INIT;
+                        boardStatus[lastI][lastJ] = BoardStatus.INIT;
+                    }
+                } // End of MATCH
+            } // End of second Card
 
 
             numTries = 0;
@@ -181,24 +234,29 @@ public class GameActivity extends AppCompatActivity {
                     Log.d(TAG, "run: waited 2 sec, finalMATCH=" + finalMatch);
                     if (finalMatch) {
                         Log.d(TAG, "run: set all transparent");
-                        if (mode == 1 || mode ==2){
+                        if (mode == 1 || mode == 2) {
                             buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
                             buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
                             buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
                             buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
-                        }else {
+                        } else {
                             buttons[i][j].setBackgroundColor(getResources().getColor(android.R.color.transparent));
                             buttons[lastI][lastJ].setBackgroundColor(getResources().getColor(android.R.color.transparent));
                         }
                     } else {
-                        if (mode == 1 || mode ==2){
+                        if (mode == 1 || mode == 2) {
                             buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
                             buttons[lastI][lastJ].setTextColor(getResources().getColor(android.R.color.transparent));
-                        }else {
+                        } else {
                             buttons[i][j].setBackground(background);
                             buttons[lastI][lastJ].setBackground(background);
                         }
 
+                    }
+                    if (twoPlayerMode && !finalMatch) {
+                        long timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
+                        timer.stop();
+                        changePlayer(timeWhenStopped);
                     }
                     mutexTurnCard = false; // release Mutex
                 }
@@ -206,7 +264,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
 
-    }
+    } // End of turnCard
 
     // findViewByIDs and set OnClick Listeners
     private void findViewByIdAndOnClick() {
@@ -228,8 +286,12 @@ public class GameActivity extends AppCompatActivity {
         }
         timer = findViewById(R.id.txt_time);
         txt_tries = findViewById(R.id.txt_trys);
+        txt_playerName = findViewById(R.id.txt_playerName);
         pause = findViewById(R.id.btn_pause);
+        layout = findViewById(R.id.layout_game);
         txt_tries.setText("0");
+        txt_playerName.setText(namePlayer1);
+        if (!twoPlayerMode) txt_playerName.setVisibility(View.INVISIBLE);
         popupEndGame = new Dialog(this);
         popupPause = new Dialog(this);
 
@@ -238,10 +300,11 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 long timeWhenStopped = timer.getBase() - SystemClock.elapsedRealtime();
                 timer.stop();
-                showPausePopup(totalTries,timer.getText().toString(),timeWhenStopped);
+                showPausePopup(totalTries, timer.getText().toString(), timeWhenStopped);
             }
         });
-    }
+
+    } // End of findViewByIDandOnClick
 
     // fill Grid according to size of grid and mode
     private void fillGrid(int mode, int colums, int rows) {
@@ -260,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
         // ANIMALS Collection - Image IDs
         imageIDs = new int[]{R.drawable.animal1, R.drawable.animal2, R.drawable.animal3, R.drawable.animal4, R.drawable.animal5, R.drawable.animal6, R.drawable.animal7, R.drawable.animal8, R.drawable.animal9, R.drawable.animal10, R.drawable.animal11, R.drawable.animal12, R.drawable.animal13, R.drawable.animal14, R.drawable.animal15, R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19, R.drawable.animal20, R.drawable.animal21, R.drawable.animal22, R.drawable.animal23, R.drawable.animal24, R.drawable.animal25, R.drawable.animal26, R.drawable.animal27, R.drawable.animal28, R.drawable.animal29, R.drawable.animal30, R.drawable.animal31, R.drawable.animal32, R.drawable.animal33, R.drawable.animal34, R.drawable.animal35, R.drawable.animal36, R.drawable.animal37, R.drawable.animal38, R.drawable.animal39, R.drawable.animal40, R.drawable.animal41, R.drawable.animal42, R.drawable.animal43, R.drawable.animal44, R.drawable.animal45, R.drawable.animal46, R.drawable.animal47, R.drawable.animal48};
         ArrayList<Integer> imageSelection = new ArrayList<>();
-        for (int i=0; i<gridLength; ++i){
+        for (int i = 0; i < gridLength; ++i) {
             imageSelection.add(imageIDs[i]);
         }
 
@@ -285,14 +348,14 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < rows; ++j) {
                 buttons[i][j].setText(selection.get(m));
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
-                if (mode == 4) buttonImages[i][j]=imageSelection.get(m);
-                if (mode == 1 && (columns == 8 || columns ==7)) buttons[i][j].setTextSize(20);
+                if (mode == 4) buttonImages[i][j] = imageSelection.get(m);
+                if (mode == 1 && (columns == 8 || columns == 7)) buttons[i][j].setTextSize(20);
                 boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
             }
         }
 
-    }
+    } // End of fillGrid
 
     // gets random chars from char array
     public char getRandomChar(char[] array) {
@@ -317,18 +380,36 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // Show Dialog PopUp when game is finished
-    public void showWinPopup(int score, String timer){
+    public void showWinPopup(int score, String timer) {
         Log.d(TAG, "showWinPopup: ");
         popupEndGame.setContentView(R.layout.popup_win);
         popupToScore = popupEndGame.findViewById(R.id.btn_goToScores);
         popupToHome = popupEndGame.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupEndGame.findViewById(R.id.txt_result);
         TextView txt_win = popupEndGame.findViewById(R.id.txt_win);
-        txt_win.setText("Congratulations!\n"+namePlayer1+"\nContinue and try harder levels!");
-        txt_score.setText(""+score+" turns in "+timer+" min");
+        TextView txt_win_title = popupEndGame.findViewById(R.id.txt_win_title);
+        if (twoPlayerMode) {
+            if (scorePlayer1 > scorePlayer2) {
+                txt_win_title.setText(namePlayer1 + " wins!");
+                txt_win.setText("Congratulations to " + namePlayer1 + "!" + "\nSorry " + namePlayer2 + ",\nbut you only had: " + scorePlayer2 + " points");
+                txt_score.setText(namePlayer1 + "\n " + scorePlayer1 + " points in " + timer + " min");
+            } else if (scorePlayer1 < scorePlayer2) {
+                txt_win_title.setText(namePlayer2 + " wins!");
+                txt_win.setText("Congratulations to " + namePlayer2 + "!" + "\nSorry " + namePlayer1 + ",\nbut you only had: " + scorePlayer1 + " points");
+                txt_score.setText(namePlayer2 + "\n" + scorePlayer2 + " points in " + timer + " min");
+            } else {
+                txt_win_title.setText("Draw!");
+                txt_win.setText("Congratulations to both players ");
+                txt_score.setText("both: " + scorePlayer1 + " points ");
+            }
+            popupToScore.setVisibility(View.INVISIBLE);
+        } else {
+            txt_win.setText("Congratulations!\n" + namePlayer1 + "\nContinue and try harder levels!");
+            txt_score.setText("" + score + " turns in " + timer + " min");
+        }
 
 
-        final GameScores gameScores = new GameScores(columns, namePlayer1,score,timer);
+        final GameScores gameScores = new GameScores(columns, namePlayer1, score, timer);
         popupToScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -354,15 +435,25 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // Pause Dialog Popup
-    public void showPausePopup(int score, String timer, final long base){
+    public void showPausePopup(int score, String timer, final long base) {
         Log.d(TAG, "showPausePopup: ");
         popupPause.setContentView(R.layout.popup_pause);
         Button resume = popupPause.findViewById(R.id.btn_resume);
         Button returnHome = popupPause.findViewById(R.id.btn_returnHome);
         TextView txt_score = popupPause.findViewById(R.id.txt_result);
         TextView txt_player = popupPause.findViewById(R.id.txt_player);
-        txt_score.setText(""+score+" turns in "+timer+" min");
-        txt_player.setText(namePlayer1);
+        if (twoPlayerMode) {
+            if (turn == Turn.PLAYER1) {
+                txt_score.setText("" + scorePlayer1 + " points in " + timer + " min");
+                txt_player.setText(namePlayer1);
+            } else {
+                txt_score.setText("" + scorePlayer2 + " points in " + timer + " min");
+                txt_player.setText(namePlayer2);
+            }
+        } else {
+            txt_score.setText("" + score + " turns in " + timer + " min");
+            txt_player.setText(namePlayer1);
+        }
 
 
         resume.setOnClickListener(new View.OnClickListener() {
@@ -388,9 +479,28 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void restartTimer(long timeWhenStopped){
+    public void restartTimer(long timeWhenStopped) {
         timer.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
         timer.start();
+    }
+
+    public void changePlayer(long timeWhenStopped) {
+        if (turn == Turn.PLAYER1) {
+            timePlayer2 = timeWhenStopped;                              // Save time from last Player 2
+            txt_playerName.setText(namePlayer1);
+            txt_tries.setText(Integer.toString(scorePlayer1));
+            Log.d(TAG, "changePlayer: NamePlayer2: " + namePlayer2);
+            layout.setBackgroundResource(R.drawable.background_rounded);
+            restartTimer(timePlayer1);                                  // restart Timer with saved Time
+        } else {
+            timePlayer1 = timeWhenStopped;
+            txt_playerName.setText(namePlayer2);
+            txt_tries.setText(Integer.toString(scorePlayer2));
+            Log.d(TAG, "changePlayer: NamePlayer2: " + namePlayer2);
+            layout.setBackgroundResource(R.drawable.background_rounded2);
+            restartTimer(timePlayer2);
+        }
+
     }
 
 
