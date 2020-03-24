@@ -11,29 +11,42 @@ A memory app for the course "development of applications for mobile devices" at 
 
 ## Screenshots
 
+#### Homecreen
 <p align="center">
-  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/homescreen.jpg" width="40%" title="hover text">
-  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config1.jpg" width="100" alt="accessibility text">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/homescreen.jpg" width="30%">
 </p>
 
-#### Homecreen
-![alt text][home]
-
 #### Game Configuration
-![alt text][game_config1]![alt text][game_config2]
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config1.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config2.jpg" width="30%">
+</p>
 
 #### Board Sizes
-![alt text][board3x2]![alt text][board4x3] ![alt text][board5x4]![alt text][board6x5] ![alt text][board7x6] 
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board3x2.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board4x3.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board5x4.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board6x5.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board7x6.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board8x6.jpg" width="30%">
+</p>
 
 #### Win & Pause
-![alt text][pause]
-![alt text][win]
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/win.jpg" width="30%">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/pause.jpg" width="30%">
+</p>
 
 #### Highscores
-![alt text][scores] 
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/scores.jpg" width="30%">
+</p>
 
 #### Settings
-![alt text][setting] 
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/setting.jpg" width="30%">
+</p>
 
 
 
