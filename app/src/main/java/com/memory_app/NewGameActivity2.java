@@ -16,10 +16,10 @@ public class NewGameActivity2 extends AppCompatActivity {
 
     SeekBar seekBar;
     TextView txt_difficulty;
-    Button back, next, numbers, letters, shapes, logos;
+    Button back, next, numbers, letters, emojis, logos;
     String[] difficulties = {"3x2", "4x3", "5x4", "6x5", "7x6", "8x6"};
 
-    enum ModeSelection {NUMBERS, LETTERS, SHAPES, ANIMALS}
+    enum ModeSelection {NUMBERS, LETTERS, EMOJIS, ANIMALS}
 
     // Preferences
     GameSettings gameSettings;
@@ -36,7 +36,7 @@ public class NewGameActivity2 extends AppCompatActivity {
         next = findViewById(R.id.btn_next2);
         numbers = findViewById(R.id.btn_mode_123);
         letters = findViewById(R.id.btn_mode_abc);
-        shapes = findViewById(R.id.btn_mode_shapes);
+        emojis = findViewById(R.id.btn_mode_shapes);
         logos = findViewById(R.id.btn_mode_logo);
         seekBar = findViewById(R.id.seekBar);
 
@@ -96,10 +96,10 @@ public class NewGameActivity2 extends AppCompatActivity {
                 updateModes();
             }
         });
-        shapes.setOnClickListener(new View.OnClickListener() {
+        emojis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                modeSelection = ModeSelection.SHAPES;
+                modeSelection = ModeSelection.EMOJIS;
                 updateModes();
             }
         });
@@ -133,7 +133,7 @@ public class NewGameActivity2 extends AppCompatActivity {
 
         numbers.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
         letters.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
-        shapes.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
+        emojis.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
         logos.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.buttongray));
 
         switch (modeSelection) {
@@ -145,9 +145,9 @@ public class NewGameActivity2 extends AppCompatActivity {
                 mode = 2;
                 letters.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
                 break;
-            case SHAPES:
+            case EMOJIS:
                 mode = 3;
-                shapes.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
+                emojis.setBackgroundTintList(NewGameActivity2.this.getResources().getColorStateList(R.color.colorAccent));
                 break;
             case ANIMALS:
                 mode = 4;

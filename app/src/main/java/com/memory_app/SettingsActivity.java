@@ -22,7 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button clearScores;
     Switch aSwitch;
-    SeekBar seekBar;
     AudioManager audioManager;
     BackgroundSoundService backgroundSoundService;
     int lastProgress;
@@ -36,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         clearScores = findViewById(R.id.btn_clearScores);
         aSwitch = findViewById(R.id.switch2);
-        seekBar = findViewById(R.id.seekBar2);
+
 
         clearScores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,25 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
 
 
         lastProgress = 0;
-
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.d(TAG, "onProgressChanged: progress="+progress+" lastprogress="+lastProgress+" streamVolume=");
-                backgroundSoundService.pauseMusic();
-                lastProgress = progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 
 
     }

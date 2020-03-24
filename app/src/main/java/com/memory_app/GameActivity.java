@@ -139,8 +139,8 @@ public class GameActivity extends AppCompatActivity {
         if ((mode == 1 || mode == 2) && boardStatus[i][j] == BoardStatus.INIT) {
             Log.d(TAG, "turnCard: mode = 1 or 2");
             buttons[i][j].setTextColor(getResources().getColor(android.R.color.darker_gray));
-        } else if (mode == 4 && boardStatus[i][j] == BoardStatus.INIT) {
-            Log.d(TAG, "turnCard: mode == 4");
+        } else if (mode >= 3 && boardStatus[i][j] == BoardStatus.INIT) {
+            Log.d(TAG, "turnCard: mode >= 3");
             buttons[i][j].setBackgroundResource(buttonImages[i][j]);
         }
 
@@ -321,7 +321,16 @@ public class GameActivity extends AppCompatActivity {
         }
 
         // ANIMALS Collection - Image IDs
-        imageIDs = new int[]{R.drawable.animal1, R.drawable.animal2, R.drawable.animal3, R.drawable.animal4, R.drawable.animal5, R.drawable.animal6, R.drawable.animal7, R.drawable.animal8, R.drawable.animal9, R.drawable.animal10, R.drawable.animal11, R.drawable.animal12, R.drawable.animal13, R.drawable.animal14, R.drawable.animal15, R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19, R.drawable.animal20, R.drawable.animal21, R.drawable.animal22, R.drawable.animal23, R.drawable.animal24, R.drawable.animal25, R.drawable.animal26, R.drawable.animal27, R.drawable.animal28, R.drawable.animal29, R.drawable.animal30, R.drawable.animal31, R.drawable.animal32, R.drawable.animal33, R.drawable.animal34, R.drawable.animal35, R.drawable.animal36, R.drawable.animal37, R.drawable.animal38, R.drawable.animal39, R.drawable.animal40, R.drawable.animal41, R.drawable.animal42, R.drawable.animal43, R.drawable.animal44, R.drawable.animal45, R.drawable.animal46, R.drawable.animal47, R.drawable.animal48};
+        int [] animals  = new int[]{R.drawable.animal1, R.drawable.animal2, R.drawable.animal3, R.drawable.animal4, R.drawable.animal5, R.drawable.animal6, R.drawable.animal7, R.drawable.animal8, R.drawable.animal9, R.drawable.animal10, R.drawable.animal11, R.drawable.animal12, R.drawable.animal13, R.drawable.animal14, R.drawable.animal15, R.drawable.animal16, R.drawable.animal17, R.drawable.animal18, R.drawable.animal19, R.drawable.animal20, R.drawable.animal21, R.drawable.animal22, R.drawable.animal23, R.drawable.animal24, R.drawable.animal25, R.drawable.animal26, R.drawable.animal27, R.drawable.animal28, R.drawable.animal29, R.drawable.animal30, R.drawable.animal31, R.drawable.animal32, R.drawable.animal33, R.drawable.animal34, R.drawable.animal35, R.drawable.animal36, R.drawable.animal37, R.drawable.animal38, R.drawable.animal39, R.drawable.animal40, R.drawable.animal41, R.drawable.animal42, R.drawable.animal43, R.drawable.animal44, R.drawable.animal45, R.drawable.animal46, R.drawable.animal47, R.drawable.animal48};
+        int [] emojis = new int[]{R.drawable.emoji1, R.drawable.emoji2, R.drawable.emoji3, R.drawable.emoji4, R.drawable.emoji5, R.drawable.emoji6, R.drawable.emoji7, R.drawable.emoji8, R.drawable.emoji9, R.drawable.emoji10, R.drawable.emoji11, R.drawable.emoji12, R.drawable.emoji13, R.drawable.emoji14, R.drawable.emoji15, R.drawable.emoji16, R.drawable.emoji17, R.drawable.emoji18, R.drawable.emoji19, R.drawable.emoji20, R.drawable.emoji21, R.drawable.emoji22, R.drawable.emoji23, R.drawable.emoji24};
+
+        if (mode == 3){
+            imageIDs = emojis;
+            Log.d(TAG, "fillGrid: filled imageIDs with emojis");
+        }else {
+            imageIDs = animals;
+            Log.d(TAG, "fillGrid: filled imageIDs with emojis");
+        }
         ArrayList<Integer> imageSelection = new ArrayList<>();
         for (int i = 0; i < gridLength; ++i) {
             int rnd = new Random().nextInt(imageIDs.length);
@@ -355,7 +364,7 @@ public class GameActivity extends AppCompatActivity {
             for (int j = 0; j < rows; ++j) {
                 buttons[i][j].setText(selection.get(m));
                 buttons[i][j].setTextColor(getResources().getColor(android.R.color.transparent));
-                if (mode == 4) buttonImages[i][j] = imageSelection.get(m);
+                if (mode >= 3) buttonImages[i][j] = imageSelection.get(m);
                 if (mode == 1 && (columns == 8 || columns == 7)) buttons[i][j].setTextSize(20);
                 boardStatus[i][j] = BoardStatus.INIT;
                 ++m;
