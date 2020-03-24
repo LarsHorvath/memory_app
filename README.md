@@ -11,6 +11,11 @@ A memory app for the course "development of applications for mobile devices" at 
 
 ## Screenshots
 
+<p align="center">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/homescreen.jpg" width="40%" title="hover text">
+  <img src="https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config1.jpg" width="100" alt="accessibility text">
+</p>
+
 #### Homecreen
 ![alt text][home]
 
@@ -32,7 +37,7 @@ A memory app for the course "development of applications for mobile devices" at 
 
 
 
-[home]: https://github.com/LarsHorvath/memory_app/blob/master/screenshots/homescreen.jpg 
+[home]: https://github.com/LarsHorvath/memory_app/blob/master/screenshots/homescreen.jpg
 [game_config1]: https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config1.jpg 
 [game_config2]: https://github.com/LarsHorvath/memory_app/blob/master/screenshots/game_config2.jpg 
 [board3x2]: https://github.com/LarsHorvath/memory_app/blob/master/screenshots/board3x2.jpg 
