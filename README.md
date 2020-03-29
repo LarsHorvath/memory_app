@@ -8,6 +8,7 @@ A memory app for the course "development of applications for mobile devices" at 
 - Timer and score counter
 - Highscores of singe player mode
 - play background music
+- set delay before the cards turn again
 
 ## Screenshots
 
