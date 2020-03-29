@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -22,9 +23,12 @@ public class SettingsActivity extends AppCompatActivity {
 
     Button clearScores;
     Switch aSwitch;
-    AudioManager audioManager;
+    SeekBar seekBar;
+    TextView txt_delay;
     BackgroundSoundService backgroundSoundService;
-    int lastProgress;
+    boolean musicIsChecked;
+    float delay;
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -35,6 +39,16 @@ public class SettingsActivity extends AppCompatActivity {
 
         clearScores = findViewById(R.id.btn_clearScores);
         aSwitch = findViewById(R.id.switch2);
+        seekBar = findViewById(R.id.seekBar2);
+        txt_delay = findViewById(R.id.txt_settings_delay);
+
+        musicIsChecked = false;
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+        musicIsChecked = sharedPreferences.getBoolean("musicIsChecked", musicIsChecked);
+        delay = sharedPreferences.getFloat("delay",2);
+        aSwitch.setChecked(musicIsChecked);
+        seekBar.setProgress((int) (delay * 10), true);
+        txt_delay.setText(""+delay+" s");
 
 
         clearScores.setOnClickListener(new View.OnClickListener() {
@@ -51,18 +65,44 @@ public class SettingsActivity extends AppCompatActivity {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+
                 if (isChecked) {
-                    //backgroundSoundService.startMusic();
+                    editor.putBoolean("musicIsChecked", true);
                     playBackgroundSound();
                 } else {
-                    //backgroundSoundService.stopMusic();
+                    editor.putBoolean("musicIsChecked", false);
                     stopBackgroundSound();
                 }
+                editor.apply();
             }
         });
 
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                float tempProg = progress;
+                delay = tempProg / 10;
 
-        lastProgress = 0;
+                SharedPreferences sharedPreferences1 = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences1.edit();
+                editor.putFloat("delay", delay);
+                editor.apply();
+                Log.d(TAG, "onProgressChanged: delay = " + delay);
+                txt_delay.setText("" +delay+" s");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
     }

@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -42,6 +43,7 @@ public class GameActivity extends AppCompatActivity {
     String namePlayer1, namePlayer2;
     long timePlayer1, timePlayer2;
     int scorePlayer1, scorePlayer2;
+    long delay;
 
     enum Turn {PLAYER1, PLAYER2}
 
@@ -58,6 +60,11 @@ public class GameActivity extends AppCompatActivity {
         // Get Settings from previous Activity
         GameSettings gameSettings = (GameSettings) getIntent().getSerializableExtra("settings");
         assert gameSettings != null;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE);
+        delay = (long) (sharedPreferences.getFloat("delay",2)*1000);
+        Log.d(TAG, "onCreate: delay = "+delay);
+
 
 
         // Select the Grid Layout
@@ -260,9 +267,8 @@ public class GameActivity extends AppCompatActivity {
                     }
                     mutexTurnCard = false; // release Mutex
                 }
-            }, 2000);
+            }, delay);
         }
-
 
     } // End of turnCard
 
@@ -309,7 +315,6 @@ public class GameActivity extends AppCompatActivity {
     // fill Grid according to size of grid and mode
     private void fillGrid(int mode, int colums, int rows) {
         int gridLength = colums * rows / 2;
-        Log.d(TAG, "fillGrid: gridLenth: " + gridLength);
 
         // LETTER Alphabet
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
@@ -331,6 +336,8 @@ public class GameActivity extends AppCompatActivity {
             imageIDs = animals;
             Log.d(TAG, "fillGrid: filled imageIDs with emojis");
         }
+
+        // Make image selection
         ArrayList<Integer> imageSelection = new ArrayList<>();
         for (int i = 0; i < gridLength; ++i) {
             int rnd = new Random().nextInt(imageIDs.length);
@@ -343,6 +350,7 @@ public class GameActivity extends AppCompatActivity {
             imageSelection.add(image);
         }
 
+        // Make number or letter selection
         ArrayList<String> selection = new ArrayList<>();
         if (mode == 1) {
             for (int i = 0; i < gridLength; ++i) {
@@ -382,17 +390,20 @@ public class GameActivity extends AppCompatActivity {
     // makes a valid selection out of a char array
     public ArrayList<String> makeLetterSelection(char[] alphabet, int gridLength) {
         Log.d(TAG, "makeSelection: ");
-        ArrayList<String> selection = new ArrayList<>();
+        ArrayList<Character> charSelection = new ArrayList<>();
+        ArrayList<String> stringSelection = new ArrayList<>();
         for (int i = 0; i < gridLength; i++) {
             Character s = getRandomChar(alphabet);
-            while (selection.contains(s)) {
+            while (charSelection.contains(s)) {
                 // while s already in selection get new one
+                Log.d(TAG, "makeLetterSelection: already in selection" +s);
                 s = getRandomChar(alphabet);
             }
             Log.d(TAG, "makeSelection: s:" + s);
-            selection.add(s.toString());
+            charSelection.add(s);
+            stringSelection.add(s.toString());
         }
-        return selection;
+        return stringSelection;
     }
 
     // Show Dialog PopUp when game is finished
